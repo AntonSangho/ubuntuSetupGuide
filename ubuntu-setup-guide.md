@@ -102,7 +102,58 @@ xset q | grep bell
 
 ---
 
-## 4. 컴퓨터 이름(호스트명) 변경
+## 4. 터미널 한글 자간(글자 간격) 문제 해결
+
+Ubuntu 터미널에서 한글이 겹쳐 보이거나 간격이 불규칙한 경우, 한글을 지원하는 모노스페이스 폰트를 설치하면 해결됩니다.
+
+### 방법 1: D2Coding 폰트 설치 (추천)
+
+네이버에서 개발한 개발자용 한글 폰트입니다.
+
+```bash
+# 폰트 다운로드
+cd /tmp
+wget https://github.com/naver/d2codingfont/releases/download/VER1.3.2/D2Coding-Ver1.3.2-20180524.zip
+
+# 압축 해제 및 설치
+unzip D2Coding-Ver1.3.2-20180524.zip
+sudo mkdir -p /usr/share/fonts/truetype/d2coding
+sudo cp D2Coding/*.ttf /usr/share/fonts/truetype/d2coding/
+
+# 폰트 캐시 갱신
+sudo fc-cache -fv
+```
+
+### 방법 2: Noto Sans Mono CJK 폰트 설치
+
+Google에서 개발한 폰트로, 패키지 관리자로 쉽게 설치 가능합니다.
+
+```bash
+sudo apt update
+sudo apt install fonts-noto-cjk-extra
+sudo fc-cache -fv
+```
+
+### 터미널 폰트 변경
+
+1. 터미널 → **Preferences** (또는 우클릭 → Preferences)
+2. 사용 중인 프로필 선택
+3. **Custom font** 체크
+4. **D2Coding** 또는 **Noto Sans Mono CJK KR** 선택
+
+### 설치된 폰트 확인
+
+```bash
+# D2Coding 확인
+fc-list | grep -i d2coding
+
+# Noto Sans Mono CJK 확인
+fc-list | grep -i "Noto Sans Mono CJK"
+```
+
+---
+
+## 5. 컴퓨터 이름(호스트명) 변경
 
 ### 현재 호스트명 확인
 ```bash
