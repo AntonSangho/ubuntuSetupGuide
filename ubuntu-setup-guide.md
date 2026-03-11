@@ -153,7 +153,136 @@ fc-list | grep -i "Noto Sans Mono CJK"
 
 ---
 
-## 5. 컴퓨터 이름(호스트명) 변경
+## 5. Neovim Markdown Preview 설치
+
+마크다운 파일을 브라우저에서 실시간으로 미리보기 할 수 있는 플러그인입니다.
+
+### 플러그인 설치 (vim-plug 기준)
+
+`~/.config/nvim/init.vim`에 추가:
+
+```vim
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm install' }
+```
+
+이후 Neovim에서:
+
+```
+:PlugInstall
+```
+
+### 수동으로 빌드
+
+플러그인 설치 후 브라우저가 열리지 않으면 수동으로 빌드:
+
+```bash
+cd ~/.local/share/nvim/plugged/markdown-preview.nvim
+npm install
+```
+
+또는 Neovim 안에서:
+
+```
+:call mkdp#util#install()
+```
+
+### 사용법
+
+```
+:MarkdownPreview       " 브라우저 열기
+:MarkdownPreviewStop   " 브라우저 닫기
+```
+
+### 주의: Node.js 버전
+
+Node.js **v12 이상**이 필요합니다. 버전 확인:
+
+```bash
+node --version
+```
+
+v10 이하인 경우 nvm으로 업그레이드:
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+# 터미널 재시작 후
+nvm install --lts
+nvm use --lts
+```
+
+---
+
+## 6. Alacritty 터미널 설치
+
+Alacritty는 GPU 가속을 사용하는 빠르고 가벼운 터미널 에뮬레이터입니다.
+
+### 방법 1: PPA를 통한 설치 (추천)
+
+```bash
+sudo add-apt-repository ppa:aslatter/ppa
+sudo apt update
+sudo apt install alacritty
+```
+
+### 방법 2: snap을 통한 설치
+
+```bash
+sudo snap install alacritty --classic
+```
+
+### 방법 3: cargo를 통한 소스 빌드
+
+```bash
+# 의존성 설치
+sudo apt install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3
+
+# Rust 설치 (없는 경우)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source ~/.cargo/env
+
+# Alacritty 빌드 및 설치
+cargo install alacritty
+```
+
+### 설정 파일 생성
+
+```bash
+mkdir -p ~/.config/alacritty
+```
+
+기본 설정 파일 생성 (`~/.config/alacritty/alacritty.toml`):
+
+```toml
+[font]
+size = 13.0
+
+[font.normal]
+family = "D2Coding"  # 한글 폰트 사용 시
+
+[window]
+opacity = 0.95
+
+[colors.primary]
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+```
+
+### 기본 터미널로 설정
+
+```bash
+sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator $(which alacritty) 50
+sudo update-alternatives --config x-terminal-emulator
+```
+
+### 확인
+
+```bash
+alacritty --version
+```
+
+---
+
+## 7. 컴퓨터 이름(호스트명) 변경
 
 ### 현재 호스트명 확인
 ```bash
